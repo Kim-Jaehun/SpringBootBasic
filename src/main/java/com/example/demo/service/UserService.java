@@ -13,7 +13,7 @@ public interface UserService {
 
 	User getUserByUserId(String userId);
 
-	User registerUser();
+	void registerUser(User user);
 
 	void modifyUser(String userId, User user);
 

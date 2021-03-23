@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+ 
+<mapper namespace="com.example.demo.dao.UserDao">
+  	
+    <select id="getAllUsers" resultType="com.example.demo.model.User">
+        SELECT
+        	userId
+        	,userName
+        	,userNo
+        	,userPassword  
+        FROM map.user
+    </select>
+    
+    <select id="getUserByUserId" resultType="com.example.demo.model.User" parameterType="com.example.demo.model.User">
+        SELECT
+        	userId
+        	,userName
+        	,userNo
+        	,userPassword  
+        FROM map.user
+        WHERE 1=1
+        <if test="userId != null">
+        	AND userId = #{userId}
+        </if>
+    </select>
+    
+    
+    <insert id="registerUser" parameterType="com.example.demo.model.User" useGeneratedKeys="true" keyProperty="userId">
+        INSERT INTO map.user (
+	        userId
+	        ,userName
+	        ,userNo
+	        ,userPassword
+        ) 
+        VALUES(
+        	#{userId}
+        	,#{userName}
+        	,#{userNo}
+        	,#{userPassword}
+        ) 
+    </insert>
+    
+    <update id="modifyUser" parameterType="com.example.demo.model.User">
+        UPDATE map.user SET
+	        userName = #{userName}
+	        ,userNo = #{userNo}
+	        ,userPassword = #{userPassword}
+         WHERE 1=1
+         AND userId = #{userId}
+    </update>
+    
+    <delete id="deleteUser" parameterType="com.example.demo.model.User"> 
+    	DELETE FROM map.user 
+    	where userId = #{userId} 
+    </delete>
+
+</mapper>

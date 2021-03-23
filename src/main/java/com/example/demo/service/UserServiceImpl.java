@@ -14,6 +14,8 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserDao userDao;
 	
+	private User user;
+	
 	@Override
 	public List<User> getAllUsers() {
 		return userDao.getAllUsers();
@@ -21,23 +23,32 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User getUserByUserId(String userId) {
-		return userDao.getUserByUserId(userId);
+		user = new User();
+		user.setUserId(userId);
+		return userDao.getUserByUserId(user);
 	}
 
 
 	@Override
-	public User registerUser() {
-		return userDao.registerUser();
+	public void registerUser(User user) {
+		int count = userDao.registerUser(user);
+		System.out.println("등록 갯수 : " + count);
 	}
 
 	@Override
 	public void modifyUser(String userId, User user) {
-		userDao.modifyUser(userId, user);
+		user = new User();
+		user.setUserId(userId);
+		int count = userDao.modifyUser(user);
+		System.out.println("수정 갯수 : " + count);
 	}
 
 	@Override
 	public void deleteUser(String userId) {
-		userDao.deleteUser(userId);
+		user = new User();
+		user.setUserId(userId);
+		int count = userDao.deleteUser(user);
+		System.out.println("삭제 갯수 : " + count);
 	}
 
 	

@@ -1,8 +1,6 @@
 package com.example.demo.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,7 +17,7 @@ import com.example.demo.service.UserService;
 
 @RestController
 @RequestMapping("/user")
-public class HomeController {
+public class UserController {
 	
 	@Autowired
 	private UserService userService;
@@ -29,23 +27,23 @@ public class HomeController {
 		return userService.getAllUsers();
 	}
 	
-	@GetMapping("/{userid}")
-	public User getUserByUserId(@PathVariable("userId") String userid) {
-		return userService.getUserByUserId(userid);
+	@GetMapping("/{userId}")
+	public User getUserByUserId(@PathVariable("userId") String userId) {
+		return userService.getUserByUserId(userId);
 	}
 	
 	@PostMapping("")
-	public User registerUser(@RequestBody User user) {
-		return userService.registerUser();
+	public void registerUser(@RequestBody User user) {
+		userService.registerUser(user);
 	}
 	
-	@PutMapping("/{userid}")
+	@PutMapping("/{userId}")
 	public void modifyUser(
 			@PathVariable("userId") String userId, @RequestBody User user) {
 		userService.modifyUser(userId, user);
 	}
 	
-	@DeleteMapping("/{userid}")
+	@DeleteMapping("/{userId}")
 	public void deleteUser(
 			@PathVariable("userId") String userId) {
 		userService.deleteUser(userId);
